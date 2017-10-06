@@ -1,0 +1,9 @@
+{
+    "extends": ["tslint:latest", "tslint-react"],
+    "rules": {
+      // override tslint-react rules here 
+      "jsx-wrap-multiline": false,
+      "jsx-boolean-value":false,
+      "max-line-length":false
+    }
+  }

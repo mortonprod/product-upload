@@ -1,0 +1,24 @@
+{
+    "tags": {
+        "allowUnknownTags": true,
+        "dictionaries": ["jsdoc", "closure"]
+    },
+    "source": {
+        "include": ["src","README.md"],
+        "includePattern": ".+\\.tsx(doc)?$",
+        "excludePattern": "(^|\\/|\\\\)_"
+    },
+    "plugins": [
+      "node_modules/jsdoc-jsx",
+      "node_modules/ts-jsdoc"
+    ],
+    "templates": {
+        "cleverLinks": true,
+        "monospaceLinks": true
+    },
+    "opts": {
+        "encoding": "utf8",
+        "private": true,
+        "recurse": true
+    }
+}
