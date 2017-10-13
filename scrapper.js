@@ -9,17 +9,11 @@ const fs = require('fs');
  * DELETE DIRECTORY TO RESCRAPE.
  */ 
 const directory = "./annsummers"; 
-const searchStrings = [
-  {
-    name: 'var items =',
-    delimiter:',',
-    value: null
-  }
-]
+const jsObjects = ['items'];
 fs.exists(directory+'/*', function(err,stat) { 
   console.log("Err: " + err);
   if(err == null || err == false){
-    parseHTML(directory,searchStrings);
+    parseHTML(directory,jsObjects);
   }else{
     scrape({
       urls: ['http://www.annsummers.com/sitemap'],
@@ -29,9 +23,8 @@ fs.exists(directory+'/*', function(err,stat) {
       ],
       recursive: true,
       maxRecursiveDepth: 1,
-      //maxDepth: 2
     }).then(()=>{
-      parseHTML(directory,searchStrings);
+      parseHTML(directory,jsObjects);
     }).catch(console.log);
   }
 });
