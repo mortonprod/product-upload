@@ -9,43 +9,47 @@ virtualConsole.on("info", () => {  });
 virtualConsole.on("dir", () => {  });
 
 /**
- * Resolve promises for each file and js object in that file.
+ * This will take in all html files in a directory.
+ * In each file it will look for a jsObject called items.
+ * If it finds it, then it will create the final json we need.
+ * When we have looked through all the files we resolve and pass the result.
  */
-exports.parseHTML = (directory, jsObjects) => {
-    getItems(directory,jsObjects).then(values => { 
-        console.log("GOT ALL JS OBJECT...");
-        console.log(JSON.stringify(values));
-    });
-
-}
-/**
- * Will only resolve when we have all the files and js objects processed.
- */
-function getItems(directory,jsObjects){
+exports.parseHTML = (directory) => {
     return new Promise((resolve,reject) => {
         info = []
         glob(directory + "/*.html", {}, function (er, files) {
             files.forEach((file)=>{
                 fs.readFile(file,'utf8', function (err, data) {
                     if (err) throw err;
-                    jsObjects.forEach((el)=>{
-                        const dom = new JSDOM(data,{ runScripts: "dangerously",virtualConsole});
-                        if(dom.window && dom.window[el] && Array.isArray(dom.window[el])){
-                            createFinalJson(file,el,dom.window[el],directory).then((result)=>{
-                                console.log("result: " + result)
-                                info.push(result);
-                                console.log(file + " " + files[files.length-1] + " " + el + " "+ jsObjects[jsObjects.length-1]);                                
-                                if(file === files[files.length-1]  && el === jsObjects[jsObjects.length-1]){
-                                    console.log('FOUND ALL');
-                                    resolve(info);
-                                }else{
-                                    console.log("still more to find.");
-                                }   
-                            }).catch((err)=>{
-                                console.log(err);
-                            })
-                        }    
-                    }); 
+                    const dom = new JSDOM(data,{ runScripts: "dangerously",virtualConsole});
+                    if(dom.window && dom.window["items"] && Array.isArray(dom.window["items"])){
+                        createFinalJson(dom.window["items"],directory).then((result)=>{
+                            console.log("Push items for " + file);
+                            info.push(result);                               
+                            if(file === files[files.length-1]){
+                                console.log('FOUND ALL');
+                                resolve(info);
+                            }else{
+                                console.log("Still more to find after " + file);
+                            }   
+                        }).catch((err)=>{//Must also check if we have reached the end due to an error
+                            console.log("Error form items: " + err);
+                            if(file === files[files.length-1]){
+                                console.log('FOUND ALL');
+                                resolve(info);
+                            }else{
+                                console.log("Still more to find after " + file);
+                            }  
+                        })
+                    }else{
+                        console.log("No items found.");
+                        if(file === files[files.length-1]){
+                            console.log('FOUND ALL');
+                            resolve(info);
+                        }else{
+                            console.log("still more to find after " + file);
+                        }  
+                    }    
                 });
             });
         });
@@ -53,11 +57,11 @@ function getItems(directory,jsObjects){
 }
 
 /**
- * This will take in the items for each page. 
+ * This will take in the items j object for each page. 
  * It will remove the entries we don't want and make sure we point to the correct image.
  * It will only return when all the items for a page has been updated.
  */
-function createFinalJson(file,name,items,directory) {
+function createFinalJson(items,directory) {
     return Promise.all(
         items.map((el)=>{
             return new Promise((resolve,reject) => {
@@ -65,14 +69,14 @@ function createFinalJson(file,name,items,directory) {
                 delete item.url
                 const images = directory + "/*"+item.sku_code+"*";
                 //const images = directory + "/*("+item.sku_code+")";        
-                console.log(images); 
                 glob(images, {}, function (er, files) {
-                    console.log("In glob");
+                    console.log("Looking for images using sku code...");
+                    console.log("Found: " + files + " which match the code. ");                    
                     if(files.length > 1){
                         reject("Found more than one picture for the item.")
                     }else{
                         item.pic = files[0];
-                        resolve({file:file,name:name,item:item});
+                        resolve(item);
                     }
                 })
             }); 
