@@ -11,11 +11,12 @@
   "es2015": "./dist/lib-esm/reviews.js",
   "scripts": {
     "prepublish": "npm run build",
+    "scrape": "rm -rf ./annsummers && node scrapper.js",
     "docs": "typedoc --tsconfig ./tsconfig.json --out docs",
     "build:es5": "tsc --outDir ./dist/lib",
     "build:es6": "tsc -m es6 --outDir ./dist/lib-esm",
     "build:umd": "webpack --config ./webpack/webpack.prod.js --display-error-details",
-    "build": "npm run build:umd && npm run build:es5 && npm run build:es6 && gulp",
+    "build": "npm run build:umd && npm run build:es5 && npm run build:es6",
     "watch": "webpack-dev-server --open --config ./webpack/webpack.dev.js",
     "server": "NODE_ENV=development npm run build && node server.js",
     "server:watch": "NODE_ENV=development ./node_modules/nodemon/bin/nodemon.js ./server.js localhost 3000",
@@ -43,9 +44,10 @@
     "@types/mocha": "^2.2.43",
     "@types/node": "^8.0.28",
     "@types/react": "^16.0.5",
-    "@types/react-dom": "^15.5.4",
+    "@types/react-dom": "^16.0.1",
     "@types/react-router-dom": "^4.0.8",
     "@types/sinon": "^2.3.5",
+    "@types/website-scraper": "^1.2.2",
     "autoprefixer": "^7.1.4",
     "awesome-typescript-loader": "^3.2.3",
     "axios": "^0.16.2",
@@ -113,7 +115,8 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.14.1",
-    "webpack-merge": "^4.1.0"
+    "webpack-merge": "^4.1.0",
+    "website-scraper": "^3.3.1"
   },
   "repository": {
     "type": "git",

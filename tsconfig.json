@@ -1,6 +1,6 @@
 ﻿{
   "files": [
-    "./src/reviews.tsx",
+    "./src/index.ts",
     "./src/render.tsx"
  	],
   "compilerOptions": {
@@ -22,11 +22,11 @@
   },
   "include": [
     "./src/*",
-    "./src/**/*",
-    "./src/images/*"
+    "./src/**/*"
   ],
   "exclude": [
     "node_modules",
-    "./src/__tests__/*"
+    "./src/__tests__/*",
+    "./old"
   ]
 }
