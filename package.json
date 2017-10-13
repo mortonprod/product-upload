@@ -11,7 +11,7 @@
   "es2015": "./dist/lib-esm/reviews.js",
   "scripts": {
     "prepublish": "npm run build",
-    "scrape": "rm -rf ./annsummers && node scrapper.js",
+    "scrape": "node scrapper.js",
     "docs": "typedoc --tsconfig ./tsconfig.json --out docs",
     "build:es5": "tsc --outDir ./dist/lib",
     "build:es6": "tsc -m es6 --outDir ./dist/lib-esm",
@@ -69,6 +69,8 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "file-system": "^2.2.1",
+    "fs": "0.0.1-security",
+    "glob": "^7.1.2",
     "gulp": "^3.9.1",
     "gulp-shell": "^0.6.3",
     "gulp-typedoc": "^2.1.0",
