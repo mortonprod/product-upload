@@ -2,6 +2,11 @@ const fs = require('fs');
 const glob = require('glob');
 var jsdom = require("jsdom");
 const { JSDOM } = jsdom;
+const virtualConsole = new jsdom.VirtualConsole();
+virtualConsole.on("error", () => {  });
+virtualConsole.on("warn", () => {  });
+virtualConsole.on("info", () => {  });
+virtualConsole.on("dir", () => {  });
 
 /**
  * Resolve promises for each file and js object in that file.
@@ -24,7 +29,7 @@ function getItems(directory,jsObjects){
                 fs.readFile(file,'utf8', function (err, data) {
                     if (err) throw err;
                     jsObjects.forEach((el)=>{
-                        const dom = new JSDOM(data,{ runScripts: "dangerously" });
+                        const dom = new JSDOM(data,{ runScripts: "dangerously",virtualConsole});
                         if(dom.window && dom.window[el] && Array.isArray(dom.window[el])){
                             createFinalJson(file,el,dom.window[el],directory).then((result)=>{
                                 console.log("result: " + result)
