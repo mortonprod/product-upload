@@ -15,15 +15,13 @@ optionsDatabase = {
 	successMessage: "Success"
 }
 
-const db = database(optionsDatabase);
-
 options = {
-	url: "adminpageupload",
-	db:db(optionsDatabase),
+	url: "/adminpageupload",
+	db:database(optionsDatabase),
 	unpkgUI:""
 }
 
-const port = 3001;
+const port = 3000;
 const staticAssets = "./annsummers"
 
 const app = express();
@@ -32,3 +30,4 @@ app.use(bodyParser.json());
 app.set("port", port);
 app.use(express.static(staticAssets));
 app.use(middleware(options));
+app.listen(app.get("port"), () => {});

@@ -14,8 +14,10 @@ export function database(options: IOptionsDatabase): IReturnDatabase {
         db.collection(options.collectionName, (errCol, col) => {
             if (!errCol) {
                 console.log("Accessed " + options.collectionName  + " collection");
+                collection = col;
+            }else{
+                console.log("Didn't accessed " + options.collectionName  + " collection");
             }
-            collection = col;
         });
     });
     /**

@@ -1,0 +1,24 @@
+version: '2'
+services:
+  upload:
+    build: .
+    image: mortonprod/upload-test-server
+    restart: unless-stopped
+    volumes:
+      - ./server.js:/usr/src/app/server.js
+      - ./dist:/usr/src/app/dist
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+  db: 
+    image: mongo:latest
+    restart: unless-stopped
+    volumes:
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - ./db:/data/db
+    ports:
+      - 27017

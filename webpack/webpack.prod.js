@@ -20,6 +20,7 @@ module.exports = merge(common, {
   externals: {
    'react': 'commonjs react', 
    'react-dom':'commonjs react-dom',
-   'mongodb':'commonjs mongodb'
+   'mongodb':'commonjs mongodb',
+   'express':'commonjs express'
   }
 });

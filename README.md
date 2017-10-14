@@ -93,6 +93,22 @@ npm run start
 
 This will run the app on localhost:8080.
 
+# Installing Respository.
+
+To build the test server with mongodb attached.
+
+```
+npm run server:build
+``` 
+
+To start the container
+
+```
+npm run server
+```
+
+**Note this will stop all containers which you currently have running. A quick hack to make sure you are running the right container.**
+
 
 # Scrapper
 
