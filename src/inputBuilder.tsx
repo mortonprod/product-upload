@@ -22,9 +22,7 @@ export class InputBuilder extends React.Component<IPropsInputBuilder, IStatesInp
                 </h1>
                 <form>
                 {this.inputs}
-                <input name="submit" title={"Click Me to submit"} onClick={this.submit}  alt={"Submit"}>
-                    Submit
-                </input>
+                <input name="submit" title={"Click Me to submit"} onClick={this.submit}  alt={"Submit"}/>
                 </form>
             </article>
         );
