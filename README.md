@@ -44,6 +44,8 @@ The output of the UI is then used by the node server to update the database.
 
 The node middle ware will recieve the json and assets and then pass this on to an external server or the inbuilt test implementation. Either way the server will wait until it has recieved a success or failure string which is then passed to the user interface.
 
+It will also deal with authentication and cookie handling. You must pass in a mongodb. Check out the version used in package.json if your having problems. 
+
 ## Testing the Database
 
 With the current assets the database must be checked before it is updated. The issues will be passed back to the node server as a list. 
@@ -52,6 +54,8 @@ With the current assets the database must be checked before it is updated. The i
 
 The entry with the current id will be updated. The entry will link to a single file with a list of unique images. 
 In the end it will take in some input, try to save it. If there is an issue then it will return the final issue to the tester. 
+
+When connecting to the mongo db it will simply try to connect and link to the collection you specify. It will not change anything else in your database.
 
  
 
@@ -92,15 +96,16 @@ This will run the app on localhost:8080.
 
 # Scrapper
 
-It also has a basic web-scaper set up to demonstrate functionality. This scraper will 
+It also has a basic web-scaper set up to demonstrate functionality. 
 
-* Pull a number of pages with images and html
-* Create database information using the html and images
-    * It does by looking at each products page and getting the items
-        * "product-name"
-    * Must to some final check to make sure nothing is repeated etc.
 
-This can then act as a default distant server for testing the application. See below for more info.
+It is rather ad-hoc and points at the ann summers sitemap. It will strips each pages 1 hyperlink under the sitemap root, then it looks for a items object in each html page using jsdom. This items object contains everything we need to reconstruct the database. So we pull this object then correct some of the entries to match our static assets pulled with the scrapper. In the end the final data.json file is produced which the mongodb can access and populate it's own database.
+
+To run yourself:
+
+```
+npm run scrape
+```
 
 ## Contributing
 
