@@ -5,10 +5,10 @@
   "keywords": [],
   "author": "Alexander Morton <mortonprod@gmail.com>",
   "homepage": "https://github.com/mortonprod/product-upload#readme",
-  "main": "./dist/index.js",
+  "main": "./dist/index.min.js",
   "types": "./dist/index.d.ts",
-  "module": "./dist/lib/reviews.js",
-  "es2015": "./dist/lib-esm/reviews.js",
+  "module": "./dist/lib/index.js",
+  "es2015": "./dist/lib-esm/index.js",
   "scripts": {
     "prepublish": "npm run build",
     "scrape": "node --max_old_space_size=2000000  scrapper.js",
