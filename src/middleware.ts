@@ -55,6 +55,8 @@ export function middleware(options: IOptions): any {
                 <meta name="description" content="It will upload generic product data to server.">
                 <meta name="author" content="Alexander Morton">
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.0.0/umd/react.production.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.0.0/umd/react-dom.production.min.js"></script>                
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
                 </head>
                 <body>
                 <div id="root"></div>
@@ -65,6 +67,17 @@ export function middleware(options: IOptions): any {
                 </footer>
                 <script>window.__IDS__ = ${ids}</script>
                 <script src= ${options.unpkgUI}></script>
+                <script type="text/babel">
+                    class Greeting extends React.Component {
+                        render() {
+                            return (<p>Hello world</p>);
+                        }
+                    }
+                    ReactDOM.render(
+                        <Greeting />,
+                        document.getElementById('root')
+                    );
+                </script>
                 </body>
                 </html>
             `);

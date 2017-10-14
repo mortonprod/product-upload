@@ -30,8 +30,8 @@ interface IInput {
 }
 
 interface IPropsInputBuilder{
-    title: string;
-    inputs: Array<IInput>
+    title?: string;
+    inputs?: any
 }
 
 interface IStatesInputBuilder{

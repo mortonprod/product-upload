@@ -29,13 +29,13 @@ export class InputBuilder extends React.Component<IPropsInputBuilder, IStatesInp
             </article>
         );
     }
-    private submit() {
-        
+    private submit(): any {
+        return null;
     }
 }
 
-function onChange(currentValue: any, id: number) {
-
+function onChange(currentValue: any, id: number): any {
+    return null;
 }
 
 function createInputs(inputs: IInput[]) {
