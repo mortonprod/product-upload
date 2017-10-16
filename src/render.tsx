@@ -10,6 +10,7 @@ const inputs = [{
     defaultName: "",
     name: "default name",
     placeHolder: "place holder",
+    value: "default value",
   },
   type: "string",
 }];

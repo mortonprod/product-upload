@@ -4,7 +4,7 @@ interface IOptionsDatabase {
     successMessage: string;
 }
 
-interface IReturnDatabase {cr: any; de: any; up: any; re: any, getAll: any} 
+interface IReturnDatabase {cr: any; de: any; up: any; re: any, co: any} 
 
 interface IOptions {
     url: string;

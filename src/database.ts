@@ -115,21 +115,22 @@ export function database(options: IOptionsDatabase): IReturnDatabase {
         });
     }
     /**
-     * Get all ids
+     * This function will get all the information we need about all the products.
+     * We will need information like what is all the ids and categories.
      */
-    function getAll(): any {
+    function co(): any {
         return new Promise((resolve, reject) => {
-            const ids: string[] = [];
+            const combination: any = [];
             /**
              * Get all ids
              */
-            resolve(ids);
+            resolve(combination);
         });
     }
     return {
+        co,
         cr,
         de,
-        getAll,
         re,
         up,
     };
