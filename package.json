@@ -1,6 +1,6 @@
 {
   "name": "@mortonprod/product-upload",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "This is an npm package which acts as a node server to upload products to multiple servers.",
   "keywords": [],
   "author": "Alexander Morton <mortonprod@gmail.com>",
@@ -43,6 +43,7 @@
     "ts-node": "^3.3.0"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/body-parser": "^1.16.5",
     "@types/chai": "^4.0.4",
     "@types/enzyme": "^2.8.8",
