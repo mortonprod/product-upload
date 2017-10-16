@@ -2,6 +2,8 @@ interface IOptionsDatabase {
     connectString: string;
     collectionName: string;
     successMessage: string;
+    inputFile: string;
+    logLevel: number;
 }
 
 interface IReturnDatabase {cr: any; de: any; up: any; re: any, co: any} 

@@ -35,6 +35,7 @@ module.exports = merge(common, {
       umd: 'react-dom',
     },
     'mongodb':'commonjs mongodb',
-    'express':'commonjs express'
+    'express':'commonjs express',
+    'fs':'commonjs fs'
   }
 });

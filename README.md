@@ -117,6 +117,24 @@ If you need to play about with the UI without considering how it will be served 
 npm run watch
 ```
 
+## Database management
+
+You will most likely have to check the data you are running. 
+To do this install mongod to setup your databases server to connect to.  
+
+```
+mongod --dbpath=./data/db --port 27017
+```
+
+This will just get your databases and then start a server for you to link a shell editor or even node. 
+
+
+Since you are wanting to check this output of node easily. You will then connect a mongo shell CLI. Bellow is an example of connecting to the running server and then querying the collection names.
+
+```
+mongo mongodb://127.0.0.1:27017 --eval 'db.getCollectionNames()'
+```
+
 
 # Scrapper
 

@@ -13,6 +13,8 @@ virtualConsole.on("dir", () => {  });
  * In each file it will look for a jsObject called items.
  * If it finds it, then it will create the final json we need.
  * When we have looked through all the files we resolve and pass the result.
+ * Note the final output should a single array with every product. 
+ * This is done to keep the input to the application as generic as possible.
  */
 exports.parseHTML = (directory) => {
     return new Promise((resolve,reject) => {
@@ -25,7 +27,7 @@ exports.parseHTML = (directory) => {
                     if(dom.window && dom.window["items"] && Array.isArray(dom.window["items"])){
                         createFinalJson(dom.window["items"],directory).then((result)=>{
                             console.log("Push items for " + file);
-                            info.push(result);                               
+                            info = info.concat(result);                               
                             if(file === files[files.length-1]){
                                 console.log('FOUND ALL');
                                 resolve(info);
@@ -57,9 +59,11 @@ exports.parseHTML = (directory) => {
 }
 
 /**
- * This will take in the items j object for each page. 
+ * This will take in the items object for each page. 
  * It will remove the entries we don't want and make sure we point to the correct image.
+ * This is done to format the json for mongodb saving.
  * It will only return when all the items for a page has been updated.
+ * NOTE: MONGODB EXPECTS _ID TO BE OF A PARTICULAR LENGTH SO IGNORE THIS
  */
 function createFinalJson(items,directory) {
     return Promise.all(
@@ -67,6 +71,8 @@ function createFinalJson(items,directory) {
             return new Promise((resolve,reject) => {
                 const item = JSON.parse(JSON.stringify(el));
                 delete item.url
+                //item._id = item.id;
+                //delete item.id;
                 const images = directory + "/*"+item.sku_code+"*";
                 //const images = directory + "/*("+item.sku_code+")";        
                 glob(images, {}, function (er, files) {

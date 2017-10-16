@@ -19,11 +19,12 @@
     "build": "npm run build:umd && npm run build:es5 && npm run build:es6",
     "watch": "webpack-dev-server --open --config ./webpack/webpack.dev.js",
     "server:build": "NODE_ENV=production docker-compose build",
-    "server": "NODE_ENV=development && docker stop $(docker ps -a -q) && docker-compose up",
+    "server": "NODE_ENV=development  docker-compose up",
+    "server:restart": "NODE_ENV=development && docker stop $(docker ps -a -q) && docker-compose up",
     "server:watch": "NODE_ENV=development ./node_modules/nodemon/bin/nodemon.js ./server.js localhost 3000",
     "test": "npm run build && jest ./__tests__/*",
     "test:watch": "npm run build && jest --watch ./__tests__/*",
-    "test:coverage": "npm run build && jest ./__tests__/ --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "test:coverage": "npm run build && jest ./__tests__/ --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"   
   },
   "jest": {
     "snapshotSerializers": [

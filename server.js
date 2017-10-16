@@ -12,7 +12,9 @@ const database = require("./dist").database;
 optionsDatabase = {
 	connectString: "mongodb://db:27017",
 	collectionName:"products",
-	successMessage: "Success"
+	successMessage: "Success",
+	inputFile: "./data.json",
+	logLevel: 0,
 }
 
 options = {
