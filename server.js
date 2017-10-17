@@ -8,6 +8,18 @@ const express = require("express");
 const middleware = require("./dist").middleware;
 const database = require("./dist").database;
 
+const staticAssets = "./annsummers"
+/**
+ * This will either update the current data with a new variable or it will specify a type for that variable or both.
+ * The types describe how the middleware and UI should be create.
+ * If none specified then default string change used. 
+ */
+const layout = [
+	{
+		name: "category",
+		type: "category"
+	},
+]
 
 optionsDatabase = {
 	connectString: "mongodb://db:27017",
@@ -15,16 +27,17 @@ optionsDatabase = {
 	successMessage: "Success",
 	inputFile: "./data.json",
 	logLevel: 0,
+	layout: layout,
 }
 
 options = {
 	url: "/adminpageupload",
 	db:database(optionsDatabase),
-	unpkgUI:""
+	unpkgUI:"",
+	staticAssets: staticAssets
 }
 
 const port = 3000;
-const staticAssets = "./annsummers"
 
 const app = express();
 app.use(bodyParser.json());

@@ -37,8 +37,20 @@ Say we have product, what would be the information we will most likely need to s
 
 These can be defined as react component which take some input, you interact with it, then it produces some output.
 
-The output of the UI is then used by the node server to update the database.
+The output of the UI is then used by the node server to update the database. 
+You will get different basic types which you can mix and match
 
+### Category. 
+
+If a variable is a category then you will need to do some basic things
+
+* Collect a list of all categories from all the products. This could be arrays or individual objects.
+* Create a UI which takes in possible categories and yours and allows you to update.
+    * It should also allow you to add a new category.
+
+### Photo
+
+* 
 
 ## Node Middleware
 

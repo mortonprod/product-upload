@@ -7,9 +7,13 @@
  */
 
 import * as express from "express";
+import * as fs from "fs";
+import * as multer from "multer";
+import * as path from "path";
 import {InputBuilder} from "./inputBuilder";
 
 export function middleware(options: IOptions): any {
+    const upload = multer({ dest: path.join(__dirname, options.staticAssets) });
     const router = express.Router();
     /**
      * Catch routes and then pass this to the database to update.
@@ -21,13 +25,37 @@ export function middleware(options: IOptions): any {
             res.send(err);
         });
     });
-
-    router.post(options.url + "/create", (req: any, res: any, next) => {
-        options.db.cr(req.body.product).then((success: string) => {
-            res.send(success);
-        }).catch((err: string[]) => {
-            res.send(err);
-        });
+    /**
+     * This route should always be complete product upload.
+     * Therefore it should have a unique id.
+     * Check the file and database before saving.
+     * If you have an error then unlink the file so you can start afresh.
+     * Note: Must rename the file to match what was passed in
+     */
+    router.post(options.url + "/create", upload.single("file"), (req: any, res: any, next) => {
+        const errorIm: string[] = [];
+        let isError = false;
+        if (!req.file) {
+            errorIm.push("Need to upload a picture for product");
+            isError = true;
+        }else {
+            if (!req.file.originalname.includes(".png") && !req.file.originalname.includes(".jpg")) {
+                errorIm.push("Uploaded files does not have the extension png or jpeg");
+                isError = true;
+            }
+        }
+        if (!isError) {
+            options.db.cr(req.body.product).then((success: string) => {
+                fs.rename(path.join(__dirname, options.staticAssets, req.file.filename) , path.join(__dirname, options.staticAssets, req.file.originalname), () => null);
+                res.send(success);
+            }).catch((errorDb: string[]) => {
+                fs.unlink(path.join(__dirname, options.staticAssets, req.file.filename), () => null);
+                res.send(errorDb);
+            });
+        }else {
+            fs.unlink(path.join(__dirname, options.staticAssets, req.file.filename), () => null);
+            res.send(errorIm);
+        }
     });
 
     router.post(options.url + "/update", (req: any, res: any, next) => {

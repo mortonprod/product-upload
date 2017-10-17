@@ -68,9 +68,7 @@ export function database(options: IOptionsDatabase): IReturnDatabase {
     function cr(product: any): any {
         return new Promise((resolve, reject) => {
             checksProduct(product).then((result: any) => {
-                /**
-                 * Add to database now.
-                 */
+                collection.insert(result);
                 resolve(options.successMessage);
             }).catch((err: any) => {
                 reject(err);
@@ -84,7 +82,7 @@ export function database(options: IOptionsDatabase): IReturnDatabase {
         return new Promise((resolve, reject) => {
             checksId(id).then((result: any) => {
                 /**
-                 * Add to database now.
+                 * Get to database now.
                  */
                 resolve(options.successMessage);
             }).catch((err: any) => {
@@ -98,9 +96,7 @@ export function database(options: IOptionsDatabase): IReturnDatabase {
     function up(product: any): any {
         return new Promise((resolve, reject) => {
             checksProduct(product).then((result: any) => {
-                /**
-                 * Add to database now.
-                 */
+                collection.insert(result);
                 resolve(options.successMessage);
             }).catch((err: any) => {
                 reject(err);
@@ -113,9 +109,7 @@ export function database(options: IOptionsDatabase): IReturnDatabase {
     function de(id: any): any {
         return new Promise((resolve, reject) => {
             checksId(id).then((result: any) => {
-                /**
-                 * Add to database now.
-                 */
+                collection.delete({id});
                 resolve(options.successMessage);
             }).catch((err: any) => {
                 reject(err);

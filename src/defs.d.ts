@@ -12,6 +12,7 @@ interface IOptions {
     url: string;
     db: IReturnDatabase;
     unpkgUI: string;
+    staticAssets: string;
 }
 
 interface IPropsString {

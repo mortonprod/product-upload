@@ -36,6 +36,8 @@ module.exports = merge(common, {
     },
     'mongodb':'commonjs mongodb',
     'express':'commonjs express',
-    'fs':'commonjs fs'
+    'fs':'commonjs fs',
+    'multer':'commonjs multer',
+    'path':'commonjs path'
   }
 });
